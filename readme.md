@@ -24,9 +24,9 @@ git clone https://github.com/your-username/your-repo.git
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Set up OpenAI API key
+### 3️⃣ Have an OpenAI API key
 
-This app requires an **OpenAI API key**. You must set it as an **environment variable** before running the app.
+This app requires an **OpenAI API key**. You can set it as an **environment variable** if running locally or enter it directly in the app.
 
 ```bash
 export OPENAI_API_KEY="your-api-key"
