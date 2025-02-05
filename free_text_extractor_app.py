@@ -4,15 +4,13 @@ import json
 from langchain_openai import ChatOpenAI
 from langchain.schema import SystemMessage
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
+st.title("Free Text Clinical Data Extractor")
 
-if not openai_api_key:
-    st.error("OpenAI API key not found. Please set it as an environment variable before running the app.")
-    st.stop() 
+api_key = st.text_input("Enter your OpenAI API Key:", type="password")
 
-llm = ChatOpenAI(model_name="gpt-4", temperature=0.1, api_key=openai_api_key)
-
-st.title("Free text clinical data extractor")
+if not api_key:
+    st.warning("Please enter your OpenAI API key to proceed.")
+    st.stop()   
 
 st.markdown(
     """
@@ -27,13 +25,14 @@ st.markdown(
 doctor_note = st.text_area("Enter the doctor's note:", "")
 
 if st.button("Extract Information"):
-    if doctor_note.strip(): 
+    if not doctor_note.strip():
+        st.warning("Please enter a doctor's note before extracting information.")
+    else:
+        llm = ChatOpenAI(model_name="gpt-4", temperature=0, api_key=api_key)
 
         prompt = f"""
         Extract and structure the following information from the free-text doctor's note:
-        - Patient age
-        - Patient gender
-        - Symptoms ((Only the name of the symptom, without duration, frequency, or severity)
+        - Symptoms (Only the name of the symptom, **without duration, frequency, or severity**)
         - Suspected Diagnoses
         - Recommended Lab Tests
         - Prescriptions
@@ -65,7 +64,4 @@ if st.button("Extract Information"):
         except json.JSONDecodeError:
             st.error("The AI did not return a valid JSON response. Try using a more medical-focused note.")
             st.text("Raw Response from AI:")
-            st.write(response_text)  
-    else:
-        st.warning("Please enter a doctor's note before extracting information.")
-
+            st.write(response_text) 
