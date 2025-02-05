@@ -32,7 +32,8 @@ if st.button("Extract Information"):
 
         prompt = f"""
         Extract and structure the following information from the free-text doctor's note:
-        - Symptoms (Only the name of the symptom, **without duration, frequency, or severity**)
+        - Patient details (age, gender)
+        - Symptoms (Only the name of the symptom, without duration, frequency, or severity)
         - Suspected Diagnoses
         - Recommended Lab Tests
         - Prescriptions
