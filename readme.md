@@ -12,7 +12,7 @@ This is a **Streamlit app** that extracts structured medical information from a 
   - Follow-up appointments
 - Output is displayed in **JSON format**.
 
-## Installation
+## Installation 
 
 ### 1️⃣ Clone this repository
 ```bash
